@@ -11,7 +11,9 @@ class CovidTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(primaryColor: Color(0xFF5A82AA)),
+      theme: ThemeData.dark().copyWith(
+          primaryColor: Color(0xFF5A82AA),
+          scaffoldBackgroundColor: Colors.black),
       home: SplashScreen(),
     );
   }

@@ -36,82 +36,90 @@ class _WorldStatesScreenState extends State<WorldStatesScreen> {
           body: FutureBuilder<WorldStatsModel>(
               future: _getWorldStats(),
               builder: (context, snapshot) {
-                return Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF000000),
-                          Color(0xFF000000),
-                          Colors.white,
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [0, 0.3, 0.3]),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 50),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          'World\nCovid Stats',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 30,
+                return !snapshot.hasData
+                    ? Center(
+                        child: CircularProgressIndicator(
+                        backgroundColor: Colors.black,
+                      ))
+                    : Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [
+                                Color(0xFF000000),
+                                Color(0xFF000000),
+                                Colors.white,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: [0, 0.3, 0.3]),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'World\nCovid Stats',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 30,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  DataContainer(
+                                    title: 'Total Cases',
+                                    count: snapshot.data!.cases.toString(),
+                                    color: Colors.lightBlueAccent,
+                                  ),
+                                  DataContainer(
+                                    title: 'Active',
+                                    count: snapshot.data!.active.toString(),
+                                    color: Colors.redAccent.shade100,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  DataContainer(
+                                    title: 'Recovered',
+                                    count: snapshot.data!.recovered.toString(),
+                                    color: Colors.lightGreenAccent.shade100,
+                                  ),
+                                  DataContainer(
+                                    title: 'Deaths',
+                                    count: snapshot.data!.deaths.toString(),
+                                    color: Colors.black,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  DataContainer(
+                                    title: 'Total Tests \nToday',
+                                    count: snapshot.data!.tests.toString(),
+                                    color: Colors.yellow,
+                                  ),
+                                  DataContainer(
+                                    title: 'Positive Cases\nToday',
+                                    count: snapshot.data!.todayCases.toString(),
+                                    color: Colors.deepPurple,
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DataContainer(
-                              title: 'Total Cases',
-                              count: snapshot.data!.cases.toString(),
-                              color: Colors.lightBlueAccent,
-                            ),
-                            DataContainer(
-                              title: 'Active',
-                              count: snapshot.data!.active.toString(),
-                              color: Colors.redAccent.shade100,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DataContainer(
-                              title: 'Recovered',
-                              count: snapshot.data!.recovered.toString(),
-                              color: Colors.lightGreenAccent.shade100,
-                            ),
-                            DataContainer(
-                              title: 'Deaths',
-                              count: snapshot.data!.deaths.toString(),
-                              color: Colors.black,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            DataContainer(
-                              title: 'Total Tests \nToday',
-                              count: snapshot.data!.tests.toString(),
-                              color: Colors.yellow,
-                            ),
-                            DataContainer(
-                              title: 'Positive Cases\nToday',
-                              count: snapshot.data!.todayCases.toString(),
-                              color: Colors.deepPurple,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                      );
               }),
         ),
       ),
